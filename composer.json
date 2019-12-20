@@ -1,0 +1,21 @@
+{
+    "name": "rusbios/numb-word",
+    "description": "Tool for textual presentation of prices",
+    "authors": [
+        {
+            "name": "Ryssia",
+            "email": "info@rusbios.ru"
+        }
+    ],
+    "version": "0.1.0",
+    "require": {
+        "php": ">=7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "RusBios\\NumbWord\\": "src/"
+        },
+        "classmap": [
+        ]
+    }
+}
