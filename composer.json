@@ -14,8 +14,6 @@
     "autoload": {
         "psr-4": {
             "RusBios\\NumbWord\\": "src/"
-        },
-        "classmap": [
-        ]
+        }
     }
 }
