@@ -41,6 +41,20 @@ abstract class CurrencyAbstract implements CurrencyInterface
         return $this->fraction;
     }
 
+    public function getStringWhole()
+    {
+        if ($this->whole[0] == 0 && count($this->whole) == 1) {
+            return $this->zero;
+        }
+
+        $res = [];
+        foreach ($this->whole as $value) {
+            $res[] = $this->hundreds((string) $value);
+        }
+
+        return join($this->delimiter, array_filter($res));
+    }
+
     public function convert($currency, float $rate = 1)
     {
         return NumbWord::getCurrency(((float) $this->getNumber() * $rate), $currency);
@@ -51,4 +65,10 @@ abstract class CurrencyAbstract implements CurrencyInterface
         $this->delimiter = $delimiter;
         return $this;
     }
+
+    /**
+     * @param $val
+     * @return string
+     */
+    abstract protected function hundreds($val);
 }

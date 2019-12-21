@@ -20,20 +20,6 @@ class RubCurrency extends CurrencyAbstract
         ['миллиард', 'милиарда', 'миллиардов'],
     ];
 
-    public function getStringWhole()
-    {
-        if ($this->whole[0] == 0) {
-            return $this->zero;
-        }
-
-        $res = [];
-        foreach ($this->whole as $value) {
-            $res[] = $this->hundreds((string) $value);
-        }
-
-        return join($this->delimiter, array_filter($res));
-    }
-
     public function getCurrency()
     {
         return $this->morph($this->whole[0], $this->unit[1][0], $this->unit[1][1], $this->unit[1][2]);
