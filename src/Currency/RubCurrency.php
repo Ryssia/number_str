@@ -2,23 +2,16 @@
 
 namespace RusBios\NumbWord\Currency;
 
-class RubCurrency implements CurrencyInterface
+class RubCurrency extends CurrencyAbstract
 {
-    /** @var int[] */
-    protected $whole;
-
-    /** @var int $fraction */
-    protected $fraction;
-
-    protected $delimiter = ' ';
     protected $zero = 'ноль';
     protected $ten = [
-        ['', 'один', 'два', 'три', 'четыре', 'пять', 'шесть', 'семь', 'восемь', 'девять'],
-        ['', 'одна', 'две', 'три', 'четыре', 'пять', 'шесть', 'семь', 'восемь', 'девять'],
+        [null, 'один', 'два', 'три', 'четыре', 'пять', 'шесть', 'семь', 'восемь', 'девять'],
+        [null, 'одна', 'две', 'три', 'четыре', 'пять', 'шесть', 'семь', 'восемь', 'девять'],
     ];
     protected $twenties = ['десять', 'одиннадцать', 'двенадцать', 'тринадцать', 'четырнадцать', 'пятнадцать', 'шестнадцать', 'семнадцать', 'восемнадцать', 'девятнадцать'];
     protected $tens = [2 => 'двадцать', 'тридцать', 'сорок', 'пятьдесят', 'шестьдесят', 'семьдесят', 'восемьдесят', 'девяносто'];
-    protected $hundred = ['', 'сто', 'двести', 'триста', 'четыреста', 'пятьсот', 'шестьсот', 'семьсот', 'восемьсот', 'девятьсот'];
+    protected $hundred = [null, 'сто', 'двести', 'триста', 'четыреста', 'пятьсот', 'шестьсот', 'семьсот', 'восемьсот', 'девятьсот'];
     protected $unit = [
         ['копейка', 'копейки', 'копеек'],
         ['рубль', 'рубля', 'рублей'],
@@ -27,41 +20,6 @@ class RubCurrency implements CurrencyInterface
         ['миллиард', 'милиарда', 'миллиардов'],
     ];
 
-    /**
-     * NumbWord constructor.
-     * @param float $number
-     */
-    public function __construct(float $number)
-    {
-        $tmp = explode(',', number_format($number, 2, ',', ','));
-        $this->fraction = (int) array_pop($tmp);
-        $this->whole = array_reverse($tmp);
-    }
-
-    /**
-     * @return string
-     */
-    public function getNumber()
-    {
-        return sprintf('%s,%s', join($this->delimiter, array_reverse($this->whole)), $this->fraction);
-    }
-
-    /**
-     * @return string
-     */
-    public function getStringPrice()
-    {
-        return join($this->delimiter, [
-            $this->getStringWhole(),
-            $this->getCurrency(),
-            $this->getNumberFraction(),
-            $this->getFraction(),
-        ]);
-    }
-
-    /**
-     * @return string
-     */
     public function getStringWhole()
     {
         if ($this->whole[0] == 0) {
@@ -73,28 +31,14 @@ class RubCurrency implements CurrencyInterface
             $res[] = $this->hundreds((string) $value);
         }
 
-        return implode(' ', $res);
+        return join($this->delimiter, array_filter($res));
     }
 
-    /**
-     * @return string
-     */
     public function getCurrency()
     {
         return $this->morph($this->whole[0], $this->unit[1][0], $this->unit[1][1], $this->unit[1][2]);
     }
 
-    /**
-     * @return int
-     */
-    public function getNumberFraction()
-    {
-        return $this->fraction;
-    }
-
-    /**
-     * @return string
-     */
     public function getFraction()
     {
         return $this->morph($this->fraction, $this->unit[0][0], $this->unit[0][1], $this->unit[0][2]);

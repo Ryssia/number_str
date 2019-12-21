@@ -2,6 +2,8 @@
 
 namespace RusBios\NumbWord\Currency;
 
+use Exception;
+
 interface CurrencyInterface
 {
     /**
@@ -39,4 +41,18 @@ interface CurrencyInterface
      * @return string
      */
     public function getFraction();
+
+    /**
+     * @param string $currency
+     * @param float $rate
+     * @return CurrencyInterface
+     * @throws Exception
+     */
+    public function convert($currency, float $rate = 1);
+
+    /**
+     * @param string $delimiter
+     * @return CurrencyInterface
+     */
+    public function setDelimiter($delimiter);
 }
