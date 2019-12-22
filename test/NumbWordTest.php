@@ -2,6 +2,7 @@
 
 namespace RusBios\NumbWordTest;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
 use RusBios\NumbWord\Currency\CurrencyInterface;
 use RusBios\NumbWord\NumbWord;
@@ -17,7 +18,7 @@ class NumbWordTest extends TestCase
             $currency = NumbWord::getCurrency(9863568123.32, NumbWord::CURRENCY_RUB);
             $this->assertTrue($currency instanceof CurrencyInterface);
             return $currency;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->assertTrue(false);
         }
     }
@@ -31,7 +32,7 @@ class NumbWordTest extends TestCase
         try {
             $currency->convert('111');
             $this->assertTrue(false);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->assertTrue(true);
         }
     }
@@ -57,7 +58,7 @@ class NumbWordTest extends TestCase
     /**
      * @depends testGetCurrency
      * @param CurrencyInterface $currency
-     * @throws \Exception
+     * @throws Exception
      */
     public function testGetConvert(CurrencyInterface $currency)
     {
