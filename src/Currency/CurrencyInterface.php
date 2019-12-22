@@ -55,4 +55,9 @@ interface CurrencyInterface
      * @return CurrencyInterface
      */
     public function setDelimiter($delimiter);
+
+    /**
+     * @return float
+     */
+    public function getFloat();
 }
