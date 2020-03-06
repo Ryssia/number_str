@@ -9,6 +9,7 @@ class NumbWord
 {
     const CURRENCY_RUB = 'RUB';
     const CURRENCY_USD = 'USD';
+    const CURRENCY_JPY = 'JPY';
 
     /**
      * @param float $number
